@@ -19,10 +19,7 @@ namespace xf.practices.pomodoro.ViewModels
         {
             if (e.PropertyName == nameof(SelectedMenuItem))
             {
-                if (SelectedMenuItem == "Configuracion")
-                {
-                    MessagingCenter.Send(this, "GoToConfiguration");
-                }
+                MessagingCenter.Send(this, "GoTo", SelectedMenuItem);
             }
         }
 

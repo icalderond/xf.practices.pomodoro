@@ -6,37 +6,67 @@ namespace xf.practices.pomodoro.ViewModels
 {
     public class ConfigurationPageViewModel : NotificationEnabledObject
     {
+
+        string PomodoroDuration = "PomodoroDuration";
+        string BreakDuration = "BreakDuration";
+
         public ConfigurationPageViewModel()
         {
+            LoadPomodoroDuration();
+            LoadBreakDuration();
+            LoadConfiguration();
             SaveCommand = new Command(SaveCommandExecute);
+        }
+
+        private void LoadConfiguration()
+        {
+            if (Application.Current.Properties.ContainsKey(PomodoroDuration))
+            {
+                SelectedPomodoroDuration = (int)Application.Current.Properties[PomodoroDuration];
+            }
+            if (Application.Current.Properties.ContainsKey(BreakDuration))
+            {
+                SelectedBreakDuration = (int)Application.Current.Properties[BreakDuration];
+            }
+        }
+
+        private void LoadBreakDuration()
+        {
+            BreakDurations = new ObservableCollection<int>() { 1, 5, 10, 25 };
+        }
+
+        private void LoadPomodoroDuration()
+        {
+            PomodoroDurations = new ObservableCollection<int>()
+            { 1, 5, 10, 25 };
         }
 
         private async void SaveCommandExecute()
         {
-            App.Current.Properties["PomodoroDuration"] = SelectedPomodoroDuration;
-            App.Current.Properties["BreakDuration"] = SelectedBreakDuration;
+            Application.Current.Properties[PomodoroDuration] = SelectedPomodoroDuration;
+            Application.Current.Properties[BreakDuration] = SelectedBreakDuration;
 
-            await App.Current.SavePropertiesAsync();
+            await Application.Current.SavePropertiesAsync();
         }
 
-        private ObservableCollection<int> _PomodoroDuration;
-        public ObservableCollection<int> PomodoroDuration
+        private ObservableCollection<int> _PomodoroDurations;
+        public ObservableCollection<int> PomodoroDurations
         {
-            get { return _PomodoroDuration; }
+            get { return _PomodoroDurations; }
             set
             {
-                _PomodoroDuration = value;
+                _PomodoroDurations = value;
                 OnPropertyChanged();
             }
         }
 
-        private ObservableCollection<int> _BreakDuration;
-        public ObservableCollection<int> BreakDuration
+        private ObservableCollection<int> _BreakDurations;
+        public ObservableCollection<int> BreakDurations
         {
-            get { return _BreakDuration; }
+            get { return _BreakDurations; }
             set
             {
-                _BreakDuration = value;
+                _BreakDurations = value;
                 OnPropertyChanged();
             }
         }
