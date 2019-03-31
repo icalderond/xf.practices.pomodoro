@@ -2,13 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
+using xf.practices.pomodoro.Persistence;
 namespace xf.practices.pomodoro.ViewModels
 {
     public class ConfigurationPageViewModel : NotificationEnabledObject
     {
-
-        string PomodoroDuration = "PomodoroDuration";
-        string BreakDuration = "BreakDuration";
 
         public ConfigurationPageViewModel()
         {
@@ -20,13 +18,13 @@ namespace xf.practices.pomodoro.ViewModels
 
         private void LoadConfiguration()
         {
-            if (Application.Current.Properties.ContainsKey(PomodoroDuration))
+            if (Application.Current.Properties.ContainsKey(Literals.PomodoroDuration))
             {
-                SelectedPomodoroDuration = (int)Application.Current.Properties[PomodoroDuration];
+                SelectedPomodoroDuration = (int)Application.Current.Properties[Literals.PomodoroDuration];
             }
-            if (Application.Current.Properties.ContainsKey(BreakDuration))
+            if (Application.Current.Properties.ContainsKey(Literals.BreakDuration))
             {
-                SelectedBreakDuration = (int)Application.Current.Properties[BreakDuration];
+                SelectedBreakDuration = (int)Application.Current.Properties[Literals.BreakDuration];
             }
         }
 
@@ -43,8 +41,8 @@ namespace xf.practices.pomodoro.ViewModels
 
         private async void SaveCommandExecute()
         {
-            Application.Current.Properties[PomodoroDuration] = SelectedPomodoroDuration;
-            Application.Current.Properties[BreakDuration] = SelectedBreakDuration;
+            Application.Current.Properties[Literals.PomodoroDuration] = SelectedPomodoroDuration;
+            Application.Current.Properties[Literals.BreakDuration] = SelectedBreakDuration;
 
             await Application.Current.SavePropertiesAsync();
         }

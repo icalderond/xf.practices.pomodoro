@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-using xf.practices.pomodoro.Views;
+﻿using Xamarin.Forms;
 using xf.practices.pomodoro.ViewModels;
+using xf.practices.pomodoro.Views;
 
 namespace xf.practices.pomodoro
 {
@@ -13,18 +10,22 @@ namespace xf.practices.pomodoro
         {
             InitializeComponent();
             MessagingCenter.Subscribe<RootPageViewModel, string>(this, "GoTo", (sender, SelectedMenuItem) =>
-             {
+            {
+                if (SelectedMenuItem == "Configuracion")
+                {
+                    Detail = new NavigationPage(new ConfigurationPage());
+                }
 
-                 if (SelectedMenuItem == "Configuracion")
-                 {
-                     Detail = new NavigationPage(new ConfigurationPage());
-                 }
-                 else if (SelectedMenuItem == "Pomodoro")
-                 {
-                     Detail = new NavigationPage(new PomodoroPage());
-                 }
-                 IsPresented = false;
-             });
+                if (SelectedMenuItem == "Historico")
+                {
+                    Detail = new NavigationPage(new HistoryPage());
+                }
+                else if (SelectedMenuItem == "Pomodoro")
+                {
+                    Detail = new NavigationPage(new PomodoroPage());
+                }
+                IsPresented = false;
+            });
         }
     }
 }
