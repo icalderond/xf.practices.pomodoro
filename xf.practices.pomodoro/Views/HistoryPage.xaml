@@ -1,5 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="xf.practices.pomodoro.Views.HistoryPage">
-    <ContentPage.Content>
-    </ContentPage.Content>
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+             xmlns:viewModels="clr-namespace:xf.practices.pomodoro.ViewModels" 
+             x:Class="xf.practices.pomodoro.Views.HistoryPage">
+    <ContentPage.BindingContext>
+        <viewModels:HistoryPageViewModel/>
+    </ContentPage.BindingContext>
+    <ListView ItemsSource="{Binding PomodoroList}"/>
 </ContentPage>

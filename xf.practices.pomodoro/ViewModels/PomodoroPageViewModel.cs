@@ -4,6 +4,8 @@ using System.Timers;
 using xf.practices.pomodoro.Persistence;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace xf.practices.pomodoro.ViewModels
 {
@@ -56,13 +58,19 @@ namespace xf.practices.pomodoro.ViewModels
 
         private async Task SavePomodoroAsync()
         {
+            var historyList = new List<DateTime>();
             if (Application.Current.Properties.ContainsKey(Literals.History))
             {
-                var historyList = Application.Current.Properties[Literals.History] as ObservableCollection<DateTime>;
-                historyList.Add(DateTime.Now);
-
-                await Application.Current.SavePropertiesAsync();
+                var jsonList = Application.Current.Properties[Literals.History].ToString();
+                historyList = JsonConvert.DeserializeObject<List<DateTime>>(jsonList);
             }
+
+            historyList.Add(DateTime.Now);
+
+            var historyListSerialized = JsonConvert.SerializeObject(historyList);
+
+            Application.Current.Properties[Literals.History] = historyListSerialized;
+            await Application.Current.SavePropertiesAsync();
         }
 
         void StartTimer()
