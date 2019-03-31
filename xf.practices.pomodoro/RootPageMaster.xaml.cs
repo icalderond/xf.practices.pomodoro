@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Xamarin.Forms;
 
 namespace xf.practices.pomodoro
 {
-    public partial class MainPage : ContentPage
+    public partial class RootPageMaster : ContentPage
     {
-        public MainPage()
+        public RootPageMaster()
         {
             InitializeComponent();
         }
